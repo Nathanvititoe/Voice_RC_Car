@@ -3,9 +3,8 @@
 This project enables voice-based control of an Arduino RC car using BLE and a the Vosk speech recognition model running on your PC.
 
 Arduino -  
-   Arduino Nano 33 BLE Rev2 - https://docs.arduino.cc/hardware/nano-33-ble-rev2/
-   Arduino Nano 33 BLE Sense Rev2 - https://docs.arduino.cc/hardware/nano-33-ble-sense-rev2/
-
+   Arduino Nano 33 BLE Rev2 - https://docs.arduino.cc/hardware/nano-33-ble-rev2/  
+   Arduino Nano 33 BLE Sense Rev2 - https://docs.arduino.cc/hardware/nano-33-ble-sense-rev2/  
    any arduino with BLE capability and the ability to control an RC car
 ---
 
