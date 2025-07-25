@@ -4,6 +4,21 @@
 // one Bridge for the left side wheels
 // and one bridge for the right side wheels
 
+#include <TensorFlowLite.h>
+#include "tensorflow/lite/micro/micro_error_reporter.h"
+#include "tensorflow/lite/micro/micro_interpreter.h"
+#include "tensorflow/lite/schema/schema_generated.h"
+#include "tensorflow/lite/version.h"
+#include "micro_features_micro_model.h"
+#include "micro_features_micro_features_generator.h"
+#include "micro_features_micro_model_settings.h"
+#include "micro_features_micro_features_generator.h"
+#include "micro_features_micro_model_settings.h"
+#include "micro_features_micro_speech_model_data.h"
+#include "micro_features_micro_model.h"
+#include "micro_features_micro_features_generator.h"
+#include "micro_features_micro_model_settings.h"
+
 // init left side wheel/motor pins
 const int left_ena_1 = 6;
 const int left_ena_3 = 2;
