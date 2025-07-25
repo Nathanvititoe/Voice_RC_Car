@@ -32,7 +32,6 @@ rc_car/
 ## PC Setup (Voice Recognition + BLE)
 
 1. **Create and activate a virtual environment in Powershell**  
-   *(Windows example)*
    ```powershell
    python -m venv venv
    .\venv\Scripts\activate
