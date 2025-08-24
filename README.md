@@ -73,6 +73,7 @@ rc_car/
    - #define RETRY_MS 2000 (how quick to retry connection)
 5. Upload the sketch to your Arduino.
 
+For the TT motor chassis, I used this print from Thingiverse [TT Motor Chassis](https://www.thingiverse.com/thing:3301216)
 ---
 
 ## Voice Commands

@@ -14,7 +14,7 @@ def send_command(cmd, host=HOST, port=PORT, timeout=2.0):
             local_ip, local_port = sock.getsockname()
             arduino_ip, arduino_port = sock.getpeername()
             print(f"Connected {local_ip}: {local_port} -> {arduino_ip}:{arduino_port}")
-
+            print(f"Sending Command: {msg}")
             sock.sendall(msg)
             sock.shutdown(socket.SHUT_WR)  # tell server, done sending
 

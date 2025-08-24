@@ -106,10 +106,11 @@ bool WebConnection::poll(String& incomingCmd, uint32_t readTimeoutMs) {
   String msg = client.readStringUntil('\n');
   msg.trim();  // cleanup msg
 
-  // read msg, return "OK" to client
+  // read msg, return "Received: 'msg" to client
   if (msg.length() > 0) {
     incomingCmd = msg;
-    client.println("OK");
+    client.print("Received: ");
+    client.print(msg);
   } else {
     Serial.println("Msg Empty or timed out.");
     client.println("EMPTY");

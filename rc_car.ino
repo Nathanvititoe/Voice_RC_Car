@@ -14,7 +14,7 @@
 
 // back left
 const int motor1_enable = 11;  // D11 (pwm)
-const int motor1_input1 = 13;  // D13 (neg)
+const int motor1_input1 = 18;  // D18 (neg)
 const int motor1_input2 = 12;  // D12 (pos)
 
 // front left
@@ -24,7 +24,7 @@ const int motor2_input4 = 5;   // D5 (neg)
 
 // back right
 const int motor3_enable = 9;  // D9 (pwm)
-const int motor3_input1 = 8;  // D8 (pos)
+const int motor3_input1 = 8;  // D8 (pos) 
 const int motor3_input2 = 7;  // D7 (neg)
 
 // front right
@@ -57,10 +57,10 @@ void handleCommand(const String& raw);  // declare command handler
 DriveMode current;                      // variable to hold current direction
 
 // init motors
-Motor motor1 = { 11, 13, 12, false };  // pins for motor 1
-Motor motor2 = { 10, 4, 5, false };    // pins for motor 2
-Motor motor3 = { 9, 8, 7, true };      // pins for motor 3
-Motor motor4 = { 6, 3, 2, true };      // pins for motor 4
+Motor motor1 = { motor1_enable, motor1_input1, motor1_input2, true };  // pins for motor 1
+Motor motor2 = { motor2_enable, motor2_input3, motor2_input4, true };  // pins for motor 2
+Motor motor3 = { motor3_enable, motor3_input1, motor3_input2, false };   // pins for motor 3
+Motor motor4 = { motor4_enable, motor4_input3, motor4_input4, true };   // pins for motor 4
 
 // init arr of motors
 Motor motors[4] = { motor1, motor2, motor3, motor4 };
@@ -169,8 +169,8 @@ void setMotor(const Motor& m, DriveMode mode, int speed) {
   speed = constrain(speed, 0, 100);  // passed speeds must be between 0-100%
   if (speed == 0) mode = STOP;       // if no speed, just run stop
 
-  // convert pct speed to analog, above minimum threshold
-  speed = (uint8_t)map(speed, 0, 100, 160, 255);
+  // convert pct speed to analog, above minimum threshold for all motors to turn
+  speed = (uint8_t)map(speed, 0, 100, 125, 255);
 
   // stop power before direction changes
   analogWrite(m.enable, 0);
@@ -202,7 +202,7 @@ void setMotor(const Motor& m, DriveMode mode, int speed) {
 */
 void turnRight() {
   for (auto& m : motors) setMotor(m, STOP, 0);  // stop all motors
-  delay(100);
+  delay(50);
 
   // drive left side fwd
   setMotor(motor1, FWD, 50);  // always turn at half speed
@@ -211,7 +211,7 @@ void turnRight() {
   // drive right side in rev
   setMotor(motor3, REV, 50);
   setMotor(motor4, REV, 50);
-  delay(3000);  // test for correct turn time
+  delay(750);  // test for correct turn time
 
   for (auto& m : motors) setMotor(m, STOP, 0);  // stop all motors
   current = STOP;
@@ -222,7 +222,7 @@ void turnRight() {
 */
 void turnLeft() {
   for (auto& m : motors) setMotor(m, STOP, 0);  // stop all motors
-  delay(100);
+  delay(50);
 
   // drive left side rev
   setMotor(motor1, REV, 50);  // always turn at half speed
@@ -232,7 +232,7 @@ void turnLeft() {
   setMotor(motor3, FWD, 50);
   setMotor(motor4, FWD, 50);
 
-  delay(3000);  // test for correct turn time
+  delay(1000);  // test for correct turn time
 
   for (auto& m : motors) setMotor(m, STOP, 0);  // stop all motors
   current = STOP;
