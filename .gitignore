@@ -1,6 +1,6 @@
 venv
 ps_venv
-arduino_secrets.h
+secrets/*
 pc_voice_control/vosk_voice_rec_model/*
 !pc_voice_control/vosk_voice_rec_model/.gitkeep
 pc_voice_control/vosk-model-small-en-us-0.15.zip

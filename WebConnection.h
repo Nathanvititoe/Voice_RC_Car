@@ -1,7 +1,7 @@
 #pragma once
 #include <Arduino.h>
 #include <WiFiS3.h>           // UNO R4 WiFi networking
-#include "arduino_secrets.h"  // config env vars
+#include "secrets/arduino_secrets.h"  // config env vars
 
 #ifndef SECRET_SSID
 #error "SSID not defined in configuration"
