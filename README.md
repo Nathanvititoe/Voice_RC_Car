@@ -79,7 +79,7 @@ rc_car/
 
 You can say any of the following phrases:
 
-| Action          | Trigger Phrases                           | Sent Command |
+| Action          | Trigger Phrases                           | Sent Command|
 |-----------------|-------------------------------------------|-------------|
 | Forward         | "go", "forward", "move forward", "start"  | `forward`   |
 | Stop            | "stop", "halt", "brake", "woah            | `stop`      |
