@@ -11,18 +11,20 @@ This project enables voice-based control of an Arduino RC car using a TCP Connec
 
 ```
 rc_car/
-|── rc_car_voice.ino             # Arduino sketch for Voice-controlled RC car over Wifi
 ├── pc_voice_control/
-│   ├── test_mic.py                      # tests if sounddevice library is finding input devices
-│   ├── main.py                      # Entry point for voice recognition + BLE communication
 │   ├── src/
-│   │   ├── voice_recognition/
-│   │   │   └── voice_recognition.py # logic for vosk model 
-│   │   │   └── commands.py # map of commands for the rc car
-│   │   ├── rc_web_connect/
-│   │   │   └── rc_car_control.py # connection to tcp server
-│   ├── vosk_voice_rec_model/        # Unzipped Vosk Voice Recognition model directory
-│   └── requirements.txt             # Python packages
+│   │   └── voice_recognition.py         # logic for vosk model 
+│   │   └── commands.py                  # map of commands for the rc car
+│   │   └── rc_car_control.py            # connection to tcp server
+│   ├── vosk_voice_rec_model/            # Unzipped Vosk Voice Recognition model directory
+│   ├── main.py                          # Entry point for voice recognition + BLE communication
+│   ├── test_mic.py                      # tests if sounddevice library is finding input devices
+│   └── requirements.txt                 # Python packages
+├── secrets/                             # will need to be created 
+│   └── arduino_secrets.h                    # will need to be created
+├── rc_car.ino                           # main logic for arduino (setup/loop/handleCommands) 
+├── WebConnection.cpp                    # Web Connection logic (creates TCP Connection)    
+├── WebConnection.h                      # Web Connection Header     
 ```
 
 ---
@@ -62,7 +64,7 @@ rc_car/
 2. Make sure the board is set to your wifi capable board.
 3. Ensure the WiFiS3 library is installed through the library manager.
 4. Change pin numbering to match your RC Car/L293D Drivers
-5. Create an `arduino_secrets.h` at the root of the repo (same level as the `.ino`),
+5. Create an `arduino_secrets.h` at the same level as the `rc_car.ino`,
    add these variables to the secrets file for your configuration
    - #define SECRET_SSID "" (your wifi network name)
    - #define SECRET_PASS "" (your wifi password)
