@@ -29,7 +29,7 @@ def listen_for_commands(callback_fn):
                 text = result.get("text", "").lower().strip()
                 print(f"[Model] Heard: {text}")
 
-                # find matching phrase in availabe commands map
+                # find matching phrase in available commands map
                 for phrase, command in COMMAND_MAP.items():
                     if phrase in text:
                         print(f"[Match] '{phrase}' → {command}")

@@ -1,33 +1,36 @@
 COMMAND_MAP = {
     # forward
-    "go": "FWD",
-    "forward": "FWD",
-    "move forward": "FWD",
-    "start": "FWD",
+    "go": "forward",
+    "forward": "forward",
+    "move forward": "forward",
+    "start": "forward",
 
     # stop
-    "stop": "STOP",
-    "halt": "STOP",
-    "brake": "STOP",
+    "stop": "stop",
+    "halt": "stop",
+    "brake": "stop",
+    "woah" : "stop",
 
     # turn left
-    "left": "LEFT",
-    "turn left": "LEFT",
+    "left": "left",
+    "turn left": "left",
 
     # turn right
-    "right": "RIGHT",
-    "turn right": "RIGHT",
+    "right": "right",
+    "turn right": "right",
 
     # reverse
-    "reverse": "REV", 
-    "backward": "REV",
-    "go back": "REV",
+    "reverse": "reverse", 
+    "backward": "reverse",
+    "go back": "reverse",
 
     # increase speed (full speed)
-    "speed up": "FAST",
-    "faster": "FAST",
+    "speed up": "fast",
+    "faster": "fast",
+    "full speed": "fast",
 
     # decrease speed (1/2 speed)
-    "slow down": "SLOW",
-    "slower": "SLOW"
+    "slow down": "slow",
+    "slower": "slow",
+    "half speed" : "slow",
 }
