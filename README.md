@@ -1,30 +1,28 @@
 # Voice-Controlled RC Car
 
-This project enables voice-based control of an Arduino RC car using BLE and a the Vosk speech recognition model running on your PC.
+This project enables voice-based control of an Arduino RC car using a TCP Connection and the Vosk speech recognition model running on your PC.
 
 ### Arduino -  
-- [Arduino Nano 33 BLE Rev2](https://docs.arduino.cc/hardware/nano-33-ble-rev2/)  
-- [Arduino Nano 33 BLE Sense Rev2](https://docs.arduino.cc/hardware/nano-33-ble-sense-rev2/)  
-- any arduino with BLE capability and the ability to control an RC car - [Browse Hardware](https://docs.arduino.cc/hardware/)
+- [Arduino Uno R4 Wifi](https://docs.arduino.cc/hardware/uno-r4-wifi/)
+- any arduino with Wifi capability and the ability to control an RC car - [Browse Hardware](https://docs.arduino.cc/hardware/)
 ---
 
 ##  Project Structure
 
 ```
 rc_car/
-├── arduino/
-│   └── rc_car_voice.ino             # Arduino sketches for BLE-controlled RC car
+|── rc_car_voice.ino             # Arduino sketch for Voice-controlled RC car over Wifi
 ├── pc_voice_control/
 │   ├── test_mic.py                      # tests if sounddevice library is finding input devices
 │   ├── main.py                      # Entry point for voice recognition + BLE communication
 │   ├── src/
 │   │   ├── voice_recognition/
-│   │   │   └── voice_recognition.py
-│   │   ├── rc_car_control/
-│   │   │   └── rc_car_control.py
-│   │   └── commands.py              # Phrase-to-command mapping
+│   │   │   └── voice_recognition.py # logic for vosk model 
+│   │   │   └── commands.py # map of commands for the rc car
+│   │   ├── rc_web_connect/
+│   │   │   └── rc_car_control.py # connection to tcp server
 │   ├── vosk_voice_rec_model/        # Unzipped Vosk Voice Recognition model directory
-│   └── requirements.txt             # Python package dependencies
+│   └── requirements.txt             # Python packages
 ```
 
 ---
@@ -50,7 +48,7 @@ rc_car/
      (The folder should contain files like `conf`, `am`, `graph`, etc.)
 
 4. **Run the program**
-   From the `pc_side_voice_control` directory:
+   From the `pc_voice_control` directory:
    ```bash
    python main.py
    ```
@@ -61,10 +59,17 @@ rc_car/
 ## Arduino Setup (RC Car Code)
 
 1. Open `arduino/rc_car_voice.ino` in the Arduino IDE.
-2. Make sure the board is set to **Arduino Nano 33 BLE** or **Arduino Nano 33 BLE sense**.
-3. Ensure the ArduinoBLE library is installed through the library manager.
-3. Upload the sketch to your Arduino.
-4. The BLE peripheral should advertise with the name `Voice_RC`.
+2. Make sure the board is set to your wifi capable board.
+3. Ensure the WiFiS3 library is installed through the library manager.
+4. Change pin numbering to match your RC Car/L293D Drivers
+5. Create an `arduino_secrets.h` at the root of the repo (same level as the `.ino`),
+   add these variables to the secrets file for your configuration
+   - #define SECRET_SSID "" (your wifi network name)
+   - #define SECRET_PASS "" (your wifi password)
+   - #define CONNECTION_PORT 9000 (this can be any port)
+   - #define READ_TIMEOUT_MS 3000 (how long before reading message times out)
+   - #define RETRY_MS 2000 (how quick to retry connection)
+5. Upload the sketch to your Arduino.
 
 ---
 
@@ -72,25 +77,25 @@ rc_car/
 
 You can say any of the following phrases:
 
-| Action          | Trigger Phrases                           | BLE Command |
+| Action          | Trigger Phrases                           | Sent Command |
 |-----------------|-------------------------------------------|-------------|
-| Forward         | "go", "forward", "move forward", "start"  | `FWD`       |
-| Stop            | "stop", "halt", "brake"                   | `STOP`      |
-| Turn Left       | "left", "turn left"                       | `LEFT`      |
-| Turn Right      | "right", "turn right"                     | `RIGHT`     |
-| Reverse         | "reverse", "backward", "go back"          | `REV`       |
-| Speed Up        | "speed up", "faster"                      | `FAST`      |
-| Slow Down       | "slow down", "slower"                     | `SLOW`      |
+| Forward         | "go", "forward", "move forward", "start"  | `forward`   |
+| Stop            | "stop", "halt", "brake", "woah            | `stop`      |
+| Turn Left       | "left", "turn left"                       | `left`      |
+| Turn Right      | "right", "turn right"                     | `right`     |
+| Reverse         | "reverse", "backward", "go back"          | `reverse`   |
+| Speed Up        | "speed up", "faster", "full speed"        | `fast`      |
+| Slow Down       | "slow down", "slower", "half speed"       | `slow`      |
 
-The recognized command string (like `"FWD"`, `"STOP"`) is sent to the Arduino via BLE and will trigger a movement function. 
+The recognized command string (like `"forward"`, `"stop"`) is sent to the Arduino via TCP Connection and will trigger a movement function. 
 
 ---
 ## Notes
 
 - The Vosk model must be unzipped; don’t just place the `.zip` file.
-- You can customize the voice phrases and BLE messages in `commands.py`.
+- You can customize the voice phrases and their output messages in `commands.py`.
 - The pins that are set in the arduino file must match the pins you use for your H bridges and the RC car, set this to whatever you use. 
-- This system runs speech recognition entirely offline on your PC.
+- This system runs speech recognition off of your PC and Home Wifi Network.
 
 ---
 
